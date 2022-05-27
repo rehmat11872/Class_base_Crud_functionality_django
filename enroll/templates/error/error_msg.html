@@ -1,0 +1,43 @@
+{% if form.errors %}
+    <div id="errors">
+        <div class="inner">
+            <!-- <p>There were some errors in the information you entered. Please correct the
+                following:</p> -->
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert" style="width:40%; margin-left:21rem;">
+                    {{ form.non_field_errors }}
+                </div>
+                {% endif %}
+            <ul style="text-align: center;">
+                {% for field in form %}
+                    {% if field.errors %}
+                        <li class="alert alert-danger" role="alert">{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <!-- /Error messaging -->
+{% endif %}
+
+
+<!-- {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %} -->
+{% if messages %}
+    {% for message in messages %}
+    <div id="message" class="container">
+    <div  {% if message.tags %} class="text-center alert alert-{{ message.tags }}" {% endif %} role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS_ERROR %}Important: {% endif %}
+        {{message}}
+    </div>
+</div>
+    {% endfor %}
+{% endif %}
